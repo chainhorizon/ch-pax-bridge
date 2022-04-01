@@ -22,16 +22,15 @@ export default class Form extends DomNode {
         super(".form");
         this.append(
             el(".chain",
-                el(".icon",
-                    this.chainIcon = el("img", { height: "24" }),
-                ),
+                this.chainIcon = el("img", { src: "/images/shared/logo/pax.png", alt: "chain logo" }),
+                isFrom ? el("p", "FROM") : el("p.help-text", "TO"),
                 this.chainSelect = el(
                     "select",
-                    el("option", "Polygon", {
-                        value: "137",
-                    }),
                     el("option", "Klaytn", {
                         value: "8217",
+                    }),
+                    el("option", "Polygon", {
+                        value: "137",
                     }),
                     {
                         change: () => {
@@ -41,7 +40,6 @@ export default class Form extends DomNode {
                         },
                     }
                 ) as any,
-                isFrom ? el("span.help-text", "에서") : el("span.help-text", "으로")
             ),
             (this.balanceDisplay = el(".balance")),
             (this.inputContainer = el(".input-container")),
@@ -60,10 +58,10 @@ export default class Form extends DomNode {
 
         if (chainId === 137) {
             this.sender = PaxSenderContract;
-            this.chainIcon.domElement.src = "/images/polygon-logo.png";
+            this.chainIcon.domElement.src = "/images/shared/icn/icn-polygon.svg";
         } else if (chainId === 8217) {
             this.sender = KlaytnPaxContract;
-            this.chainIcon.domElement.src = "/images/klaytn-logo.png";
+            this.chainIcon.domElement.src = "/images/shared/icn/icn-klaytn.svg";
         }
         await this.loadBalance();
 
